@@ -3,6 +3,13 @@ body {
   background: linear-gradient(-45deg, #1f2937, #111827, #374151, #1e3a8a);
   background-size: 400% 400%;
   animation: waveGradient 20s ease infinite;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes waveGradient {
@@ -12,47 +19,73 @@ body {
 }
 
 .download-btn {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.1rem;
-  padding: 0.8rem 1.5rem;
-  border-radius: 1rem;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 1.2rem;
   font-weight: bold;
-  width: 100%;
-  color: white;
+  color: #fff;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border: none;
+  cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .download-btn i {
-  margin-right: 0.5rem;
+  margin-right: 0.6rem;
+  font-size: 1.3rem;
 }
 
 .download-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4);
 }
 
 .message {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
   color: #f87171;
-  transition: opacity 1s ease;
+  opacity: 0.95;
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 0.95; transform: translateY(0); }
 }
 
 .ripple {
   position: absolute;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.5);
   animation: ripple-effect 0.6s linear;
   transform: scale(0);
+  pointer-events: none;
+  z-index: 1;
 }
 
 @keyframes ripple-effect {
   to {
     transform: scale(4);
     opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .download-btn {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .message {
+    font-size: 1.1rem;
+    margin: 1.5rem 1rem 0 1rem;
   }
 }
