@@ -3,24 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>さかな帝国</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- アイコン -->
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon16×16.png">
 
-  <!-- PWA -->
+  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1f2937">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- スタイル・アイコン -->
+  <!-- Apple用アイコン -->
+  <link rel="apple-touch-icon" href="favicon192×192.png">
+
+  <!-- Tailwind & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- sw登録 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker 登録成功:', reg.scope))
+          .catch(err => console.log('Service Worker 登録失敗:', err));
+      });
+    }
+  </script>
 </head>
-<body class="text-white bg-gray-900 px-6 py-12">
+<body class="text-white px-6 py-12 bg-gray-900">
   <h1 class="text-5xl font-bold text-red-400 mb-6 text-center">
     <i class="fas fa-robot mr-3"></i>DiscordbotのScript
   </h1>
@@ -34,18 +44,18 @@
         <i class="fas fa-ban mr-2"></i>NGワード規制設定
       </h2>
       <p class="text-lg text-gray-300 mb-6">禁止ワードを検知し自動削除＋警告するスクリプト。</p>
-      <a href="規制.py" class="download-btn bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">スクリプトをダウンロード</a>
-      <div class="message-container mt-2 text-sm text-gray-400"></div>
+      <a href="規制.py" class="download-btn bg-blue-600 hover:bg-blue-700">スクリプトをダウンロード</a>
+      <div class="message-container"></div>
     </div>
 
     <!-- 追記 -->
     <div class="file bg-gray-800 rounded-2xl p-8 shadow-2xl relative">
       <h2 class="text-2xl font-bold text-yellow-400 mb-2">
-        <i class="fas fa-eye mr-2"></i>実用性なし
+        <i class="fas fa-eye mr-2"></i>実用性なしスクリプト
       </h2>
       <p class="text-lg text-gray-300 mb-6">発言者全員にメンション＋メッセージを送信するBot。</p>
-      <a href="追記.py" class="download-btn bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded">スクリプトをダウンロード</a>
-      <div class="message-container mt-2 text-sm text-gray-400"></div>
+      <a href="追記.py" class="download-btn bg-yellow-600 hover:bg-yellow-700">スクリプトをダウンロード</a>
+      <div class="message-container"></div>
     </div>
 
     <!-- ステータス設定 -->
@@ -54,8 +64,8 @@
         <i class="fas fa-gamepad mr-2"></i>プレイ中ステータス制御
       </h2>
       <p class="text-lg text-gray-300 mb-6">Botのステータスを設定できるスクリプト</p>
-      <a href="プレイ中.py" class="download-btn bg-green-600 hover:bg-green-700 px-4 py-2 rounded">スクリプトをダウンロード</a>
-      <div class="message-container mt-2 text-sm text-gray-400"></div>
+      <a href="プレイ中.py" class="download-btn bg-green-600 hover:bg-green-700">スクリプトをダウンロード</a>
+      <div class="message-container"></div>
     </div>
 
     <!-- ChatBot -->
@@ -64,14 +74,13 @@
         <i class="fas fa-comments mr-2"></i>ChatBot
       </h2>
       <p class="text-lg text-gray-300 mb-6">GeminiAPIを利用したchatbot</p>
-      <a href="chatbot.py" class="download-btn bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">スクリプトをダウンロード</a>
-      <div class="message-container mt-2 text-sm text-gray-400"></div>
+      <a href="chatbot.py" class="download-btn bg-purple-600 hover:bg-purple-700">スクリプトをダウンロード</a>
+      <div class="message-container"></div>
     </div>
 
   </div>
 
   <script>
-    // Animation
     const buttons = document.querySelectorAll(".download-btn");
     buttons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -102,15 +111,6 @@
         }, 600);
       });
     });
-
-    // sw
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(function(reg) {
-        console.log('Service Worker 登録成功:', reg.scope);
-      }).catch(function(error) {
-        console.log('Service Worker 登録失敗:', error);
-      });
-    }
   </script>
 </body>
 </html>
