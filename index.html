@@ -6,57 +6,20 @@
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous"
-    referrerpolicy="no-referrer"
   />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: "Yu Gothic", sans-serif;
-    }
-    .file a {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: transform 0.2s ease-in-out;
-      background: linear-gradient(270deg, #2563eb, #3b82f6, #2563eb);
-      background-size: 600% 600%;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      font-weight: 600;
+      background: linear-gradient(270deg, #1e3a8a, #2563eb, #3b82f6, #1e3a8a);
+      background-size: 800% 800%;
+      animation: waveGradient 15s ease-in-out infinite;
       color: white;
-    }
-    .file a:hover {
-      text-decoration: underline;
-      transform: scale(1.07);
-      animation: bgAnimation 3s ease infinite;
-    }
-    .file a i {
-      margin-right: 0.5rem;
-      animation: iconWobble 3s ease-in-out infinite;
-      display: inline-block;
-    }
-    .file a:active::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      background: rgba(255, 255, 255, 0.3);
-      animation: ripple 0.6s linear;
-      border-radius: 0.5rem;
+      padding: 2rem;
     }
 
-    /* もとのホバー拡大アニメはtransformでやってるので残しつつ */
-
-    @keyframes bgAnimation {
+    @keyframes waveGradient {
       0% {
         background-position: 0% 50%;
       }
@@ -67,118 +30,196 @@
         background-position: 0% 50%;
       }
     }
-    @keyframes iconWobble {
-      0%, 100% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(10deg);
-      }
-      75% {
-        transform: rotate(-10deg);
-      }
+
+    .file {
+      max-width: 400px;
+      min-height: 190px; /* 高さ一定 */
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: rgba(31, 41, 55, 0.85);
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    @keyframes ripple {
+
+    .file h2 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #f87171; /* 赤み */
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .file p {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      margin-bottom: 1.5rem;
+      user-select: none;
+      flex-grow: 1;
+    }
+
+    a.download-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(270deg, #3b82f6, #60a5fa, #3b82f6);
+      background-size: 400% 400%;
+      padding: 0.7rem 1.8rem;
+      border-radius: 0.7rem;
+      box-shadow: 0 6px 12px rgba(59, 130, 246, 0.6);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+      animation: btnGradient 8s ease infinite;
+      overflow: hidden;
+      font-size: 1rem;
+      min-width: 220px;
+      height: 44px;
+    }
+
+    a.download-btn:hover {
+      transform: scale(1.1);
+      animation-play-state: paused;
+      background: linear-gradient(270deg, #60a5fa, #3b82f6, #60a5fa);
+    }
+
+    /* アイコン回転 */
+    a.download-btn.clicked i.fa-download {
+      animation: iconRotate 0.7s ease forwards;
+    }
+
+    a.download-btn i.fa-download {
+      font-size: 1.3rem;
+      transition: transform 0.3s ease;
+    }
+
+    /* 波紋エフェクト */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+      transform: scale(0);
+      opacity: 1;
+      z-index: 10;
+      user-select: none;
+    }
+
+    @keyframes btnGradient {
       0% {
-        opacity: 0.6;
-        transform: scale(0);
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
       }
       100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes iconRotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rippleAnim {
+      to {
         opacity: 0;
-        transform: scale(2);
+        transform: scale(4);
       }
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-gray-700 text-white p-8">
-  <h1 class="text-4xl font-bold text-red-400 mb-6 text-center">
-    DiscordbotのScript
+<body>
+  <h1
+    class="text-4xl font-bold text-red-400 mb-6 text-center select-none"
+  >
+    <i class="fas fa-robot"></i> Discordbot Script
   </h1>
-  <p class="text-lg text-gray-300 text-center mb-10">
+  <p
+    class="text-lg text-gray-300 text-center mb-10 select-none"
+  >
     以下のスクリプトは、Discordボットや管理機能などに役立ちます。
   </p>
 
   <!-- 規制.py -->
-  <div
-    class="file max-w-md mx-auto mb-8 p-6 bg-gray-800 rounded-xl shadow-md text-center"
-  >
-    <h2 class="text-xl font-semibold text-red-300 mb-2">
-      🔒 NGワード規制設定
+  <div class="file">
+    <h2>
+      <i class="fas fa-ban"></i>
+      NGワード規制設定
     </h2>
-    <p class="text-sm text-gray-300 mb-4">
-      Discordで禁止ワードを自動削除・警告するスクリプト。
-    </p>
-    <a
-      href="規制.py"
-      download
-      class="download-btn"
-    >
+    <p>Discordで禁止ワードを自動削除・警告するスクリプト。</p>
+    <a href="規制.py" download class="download-btn">
       <i class="fas fa-download"></i>
       <span>規制.py をダウンロード</span>
     </a>
   </div>
 
   <!-- 追記.py -->
-  <div
-    class="file max-w-md mx-auto mb-8 p-6 bg-gray-800 rounded-xl shadow-md text-center"
-  >
-    <h2 class="text-xl font-semibold text-red-300 mb-2">👀　実用性なし</h2>
-    <p class="text-sm text-gray-300 mb-4">
-      オンにすると発言した人すべてにメンション+設定したメッセージが送信されます
-    </p>
-    <a
-      href="追記.py"
-      download
-      class="download-btn"
-    >
+  <div class="file">
+    <h2>
+      <i class="fas fa-user-secret"></i>
+      実用性なし
+    </h2>
+    <p>オンにすると発言した人すべてにメンション+設定したメッセージが送信されます</p>
+    <a href="追記.py" download class="download-btn">
       <i class="fas fa-download"></i>
       <span>追記.py をダウンロード</span>
     </a>
   </div>
 
   <!-- プレイ中.py -->
-  <div
-    class="file max-w-md mx-auto mb-8 p-6 bg-gray-800 rounded-xl shadow-md text-center"
-  >
-    <h2 class="text-xl font-semibold text-red-300 mb-2">
-      🎮 プレイ中ステータス制御
+  <div class="file">
+    <h2>
+      <i class="fas fa-gamepad"></i>
+      プレイ中ステータス制御
     </h2>
-    <p class="text-sm text-gray-300 mb-4">Botのステータスを操作できます</p>
-    <a
-      href="プレイ中.py"
-      download
-      class="download-btn"
-    >
+    <p>Botのステータスを操作できます</p>
+    <a href="プレイ中.py" download class="download-btn">
       <i class="fas fa-download"></i>
       <span>プレイ中.py をダウンロード</span>
     </a>
   </div>
 
-  <!-- chatbot.py -->
-  <div
-    class="file max-w-md mx-auto mb-8 p-6 bg-gray-800 rounded-xl shadow-md text-center"
-  >
-    <h2 class="text-xl font-semibold text-red-300 mb-2">🤖 ChatBot</h2>
-    <p class="text-sm text-gray-300 mb-4">
-      GeminiAPIを使ったchatbotです
-    </p>
-    <a
-      href="chatbot.py"
-      download
-      class="download-btn"
-    >
-      <i class="fas fa-download"></i>
-      <span>chatbot.py をダウンロード</span>
-    </a>
-  </div>
-
   <script>
-    // ダウンロードリンク全てにイベント追加
-    document.querySelectorAll('a[download]').forEach(link => {
-      link.addEventListener('click', () => {
+    const buttons = document.querySelectorAll("a.download-btn");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        // 波紋エフェクト作成
+        const ripple = document.createElement("span");
+        ripple.classList.add("ripple");
+        const rect = btn.getBoundingClientRect();
+        ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + "px";
+        ripple.style.left = e.clientX - rect.left - rect.width / 2 + "px";
+        ripple.style.top = e.clientY - rect.top - rect.height / 2 + "px";
+        btn.appendChild(ripple);
+
+        // アイコン回転アニメ
+        btn.classList.add("clicked");
+
         setTimeout(() => {
+          ripple.remove();
+          btn.classList.remove("clicked");
           location.reload();
-        }, 1000); // 1秒後にページリロード
+        }, 900);
       });
     });
   </script>
